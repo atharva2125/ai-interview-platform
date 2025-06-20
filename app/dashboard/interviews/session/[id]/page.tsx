@@ -1,5 +1,5 @@
 "use client"
-
+import React from "react";
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { doc, getDoc, updateDoc } from "firebase/firestore"
@@ -12,9 +12,9 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Send, Clock, AlertCircle } from "lucide-react"
 
-export default function InterviewSession({ params }: { params: { id: string } }) {
-  // Extract id at the component level
-  const id = params.id
+export default function InterviewSession({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params); // ✅ Correct way to unwrap params
+ 
   
   const [interview, setInterview] = useState<any>(null)
   const [loading, setLoading] = useState(true)
